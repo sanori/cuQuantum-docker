@@ -1,5 +1,8 @@
 FROM nvidia/cuda:11.4.3-base-ubuntu20.04
 
+ARG cuquantum_version
+RUN test -n "$cuquantum_version" || (echo "cuquantum_version is not set" && false)
+
 ARG P_USER=user
 ARG P_UID="1000"
 ARG P_GID="1000"
@@ -29,7 +32,7 @@ ENV CONDA_DIR=/opt/conda \
 ENV PATH="${CONDA_DIR}/bin:${PATH}" \
     HOME="/home/${P_USER}"
 
-RUN useradd -l -m -s /bin/bash -N -u "${P_UID}" -g "${P_GID}" "${P_USER}" && \
+RUN useradd -l -m -s /bin/bash -N -u "${P_UID}" "${P_USER}" && \
     mkdir -p "${CONDA_DIR}" && \
     chown "${P_USER}:${P_GID}" "${CONDA_DIR}"
 
@@ -63,6 +66,6 @@ RUN set -x && \
     conda update --all --quiet --yes && \
     conda clean --all -f -y
 
-RUN mamba install -c conda-forge -y cuquantum-python
+RUN mamba install -c conda-forge -y cuquantum-python=${cuquantum_version}
 
 WORKDIR /home/${P_USER}

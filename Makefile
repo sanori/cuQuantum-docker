@@ -1,7 +1,9 @@
 .PHONY: help build
 
-IMAGE:=cuquantum
+IMAGE:=sanori/cuquantum
 TAG:=latest
+CUQUANTUM_VERSION?=$(shell ./pipver cuquantum-python)
+VERSION:=$(CUQUANTUM_VERSION)
 
 help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
@@ -11,6 +13,10 @@ help:
 clean: ## Make clean the build environment
 	docker image prune
 
-build: DARGS?=--pull
+build: DARGS?=--pull --build-arg cuquantum_version=$(CUQUANTUM_VERSION)
 build: ## Make the latest build of the image
-	docker build $(DARGS) --rm --force-rm -t $(IMAGE):$(TAG) .
+	docker build $(DARGS) --rm --force-rm -t $(IMAGE):$(TAG) -t $(IMAGE):$(VERSION) .
+
+push: ## Push the latest image
+	docker push $(IMAGE):$(VERSION)
+	docker push $(IMAGE):latest
