@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.5.2-runtime-ubuntu20.04
+FROM nvidia/cuda:11.4.3-runtime-ubuntu20.04
 
 ARG cuquantum_version
 RUN test -n "$cuquantum_version" || (echo "cuquantum_version is not set" && false)
@@ -33,8 +33,9 @@ RUN useradd -l -m -s /bin/bash -N -u "${P_UID}" "${P_USER}"
 
 ARG PYTHON_VERSION=default
 WORKDIR /tmp
+# cupy-cuda version should be the same as base image's cuda version
 RUN pip install --no-cache-dir \
-    cupy-cuda115 \
+    cupy-cuda114 \
     cuquantum-python==${cuquantum_version}
 
 USER ${P_USER}
