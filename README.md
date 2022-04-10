@@ -6,7 +6,7 @@ Docker image that provides nVidia's cuQuantum running environment with Python 3.
 ## Prerequisite
 - Docker with nVidia GPU support
   - [nVidia's container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/overview.html)
-  - [Docker Desktop WSL2 backend](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/overview.html)
+  - [Docker Desktop WSL2 backend](https://docs.docker.com/desktop/windows/wsl/#gpu-support)
 - nVidia driver (>= 470) on host machine
 
 ## Usage
