@@ -1,6 +1,6 @@
 .PHONY: help build
 
-IMAGE:=sanori/cuquantum
+IMAGE:=sanori/cuquantum-py
 TAG:=latest
 CUQUANTUM_VERSION?=$(shell ./pipver cuquantum-python)
 VERSION:=$(CUQUANTUM_VERSION)
